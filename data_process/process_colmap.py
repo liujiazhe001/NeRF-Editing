@@ -46,9 +46,10 @@ def gen_data_from_colmap(img_dir, save_dir):
     print( 'Cameras', len(cam))
 
     h, w, f = cam.height, cam.width, cam.params[0]
+    scale_factor = h / real_h
 
     K_savefile = open(os.path.join(save_dir, 'intrinsics.txt'), 'w')
-    K_savefile.write('%f %f %f 0.\n' % (f/4, cam.params[1]/4, cam.params[2]/4))
+    K_savefile.write('%f %f %f 0.\n' % (f/scale_factor, cam.params[1]/scale_factor, cam.params[2]/scale_factor))
     K_savefile.write('0. 0. 0.\n0.\n1.\n')
     K_savefile.write('%d %d\n' % (real_h, real_w))
     K_savefile.close()
